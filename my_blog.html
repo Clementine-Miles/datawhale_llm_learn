@@ -1,0 +1,511 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>我的Transformer手记</title>
+    <link href="https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+    <style>
+        /* Based on the style of jukanntenn/django-blog-tutorial-templates */
+        body {
+            font-family: 'Lora', 'Times New Roman', serif;
+            font-size: 20px;
+            color: #333;
+            line-height: 1.7;
+            background-color: #fdfdfd;
+        }
+        p {
+            margin: 0 0 24px;
+        }
+        a {
+            color: #337ab7;
+            text-decoration: none;
+        }
+        a:hover, a:focus {
+            color: #23527c;
+            text-decoration: underline;
+        }
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 800;
+            margin-top: 30px;
+            margin-bottom: 15px;
+        }
+       .container {
+            padding-right: 15px;
+            padding-left: 15px;
+            margin-right: auto;
+            margin-left: auto;
+        }
+        @media (min-width: 768px) {
+           .container {
+                width: 750px;
+            }
+        }
+        @media (min-width: 992px) {
+           .container {
+                width: 970px;
+            }
+        }
+        @media (min-width: 1200px) {
+           .container {
+                width: 1170px;
+            }
+        }
+       .row {
+            margin-right: -15px;
+            margin-left: -15px;
+        }
+       .col-lg-8,.col-lg-offset-2,.col-md-10,.col-md-offset-1 {
+            position: relative;
+            min-height: 1px;
+            padding-right: 15px;
+            padding-left: 15px;
+        }
+        @media (min-width: 992px) {
+           .col-md-10 {
+                width: 83.33333333%;
+            }
+           .col-md-offset-1 {
+                margin-left: 8.33333333%;
+            }
+        }
+        @media (min-width: 1200px) {
+           .col-lg-8 {
+                width: 66.66666667%;
+            }
+           .col-lg-offset-2 {
+                margin-left: 16.66666667%;
+            }
+        }
+       .navbar {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            z-index: 1030;
+            background-color: transparent;
+            border-color: transparent;
+            padding: 15px 0;
+            font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+        }
+       .navbar-brand {
+            float: left;
+            height: 50px;
+            padding: 15px 15px;
+            font-size: 20px;
+            line-height: 20px;
+            font-weight: 800;
+            color: white;
+        }
+       .intro-header {
+            background-color: #777;
+            background: no-repeat center center;
+            background-attachment: scroll;
+            -webkit-background-size: cover;
+            -moz-background-size: cover;
+            background-size: cover;
+            -o-background-size: cover;
+            margin-bottom: 50px;
+            background-image: url('https://images.unsplash.com/photo-1499750310107-5fef28a66643?ixlib=rb-1.2.1&auto=format&fit=crop&w=1350&q=80');
+        }
+       .site-heading {
+            padding: 150px 0 100px;
+            color: white;
+            text-align: center;
+        }
+       .site-heading h1 {
+            font-size: 50px;
+            margin-top: 0;
+        }
+       .site-heading.subheading {
+            font-size: 24px;
+            line-height: 1.1;
+            display: block;
+            font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            font-weight: 300;
+            margin: 10px 0 0;
+        }
+       .post-preview > a {
+            color: #333;
+        }
+       .post-title {
+            font-size: 36px;
+            margin-top: 30px;
+            margin-bottom: 10px;
+        }
+       .post-meta {
+            color: #777;
+            font-size: 18px;
+            font-style: italic;
+            margin-top: 0;
+        }
+        article {
+            margin-bottom: 40px;
+            border-bottom: 1px solid #eee;
+            padding-bottom: 20px;
+        }
+        blockquote {
+            padding: 10px 20px;
+            margin: 0 0 20px;
+            font-size: 17.5px;
+            border-left: 5px solid #eee;
+            font-style: italic;
+        }
+        pre {
+            display: block;
+            padding: 9.5px;
+            margin: 0 0 10px;
+            font-size: 16px;
+            line-height: 1.6;
+            word-break: break-all;
+            word-wrap: break-word;
+            color: #333;
+            background-color: #f5f5f5;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            overflow: auto;
+        }
+        code {
+            font-family: Menlo, Monaco, Consolas, "Courier New", monospace;
+            padding: 2px 4px;
+            font-size: 90%;
+            color: #c7254e;
+            background-color: #f9f2f4;
+            border-radius: 4px;
+        }
+        pre code {
+            padding: 0;
+            font-size: inherit;
+            color: inherit;
+            white-space: pre-wrap;
+            background-color: transparent;
+            border-radius: 0;
+        }
+        footer {
+            padding: 50px 0 65px;
+            text-align: center;
+        }
+       .copyright {
+            font-size: 14px;
+            margin-bottom: 0;
+        }
+    </style>
+</head>
+<body>
+
+    <nav class="navbar">
+        <div class="container-fluid">
+            <a class="navbar-brand" href="#">我的学习之旅</a>
+        </div>
+    </nav>
+
+    <header class="intro-header">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                    <div class="site-heading">
+                        <h1>Transformer学习手记</h1>
+                        <hr class="small">
+
+                    </div>
+                </div>
+            </div>
+        </div>
+    </header>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+                <article>
+                    <p class="post-meta">发布于 2024年6月23日，由橙【参数乱炖】记录</p>
+                    
+
+                    
+                    <h2>一、构建一个更现代的Transformer</h2>
+                    <p>
+                        三项升级：用旋转位置编码（RoPE）取代传统的绝对位置编码，用SwiGLU激活函数替换简单的ReLU，以及引入分组查询注意力（GQA）来提升效率。
+                    </p>
+                    
+                    
+                    <pre><code class="language-python">
+
+import torch
+import torch.nn as nn
+import torch.nn.functional as F
+import math
+from typing import Optional, Tuple
+
+class ModelArgs:
+
+    def __init__(self,
+                 dim: int = 1024,           # 模型的“宽度”，决定了它能容纳多少信息
+                 n_layers: int = 18,          # 模型的“深度”，决定了它思考的层次
+                 n_heads: int = 16,           # 注意力头的数量，代表它能同时关注多少个“焦点”
+                 n_kv_heads: Optional[int] = 4, # K,V头的数量，用于GQA。n_heads必须能被n_kv_heads整除
+                 vocab_size: int = 32000,     # 词汇量，模型能认识多少个“字”
+                 hidden_dim: Optional[int] = None, # FFN中间层的维度
+                 dropout: float = 0.1,
+                 max_seq_len: int = 2048):
+        self.dim = dim
+        self.n_layers = n_layers
+        self.n_heads = n_heads
+        self.n_kv_heads = n_kv_heads if n_kv_heads is not None else n_heads
+        self.vocab_size = vocab_size
+        self.hidden_dim = hidden_dim if hidden_dim is not None else 4 * dim
+        self.dropout = dropout
+        self.max_seq_len = max_seq_len
+        self.head_dim = dim // n_heads
+        assert self.n_heads % self.n_kv_heads == 0, "n_heads must be divisible by n_kv_heads"
+        assert self.head_dim * n_heads == self.dim, "dim must be divisible by n_heads"
+
+class RotaryPositionalEmbedding(nn.Module):
+    """
+    这是第一个核心升级：旋转位置编码（RoPE）。
+    它不像传统方法那样直接“加上”位置信息，而是通过“旋转”词向量来注入顺序感。
+    想象一下，每个词向量都在一个复数平面上，它的位置决定了它被旋转的角度。
+    这种方式天然地蕴含了相对位置信息，而且对序列长度的泛化能力更强。
+    """
+    def __init__(self, dim: int, max_seq_len: int = 2048, base: int = 10000):
+        super().__init__()
+        # 计算频率，这是旋转的“角速度”
+        inv_freq = 1.0 / (base ** (torch.arange(0, dim, 2).float() / dim))
+        self.register_buffer("inv_freq", inv_freq)
+
+        # 预计算所有可能位置的cos和sin值，像一本“三角函数速查表”
+        t = torch.arange(max_seq_len, device=inv_freq.device)
+        freqs = torch.einsum("i,j->ij", t, self.inv_freq)
+        emb = torch.cat((freqs, freqs), dim=-1)
+        self.register_buffer("cos_cached", emb.cos()[None, None, :, :], persistent=False)
+        self.register_buffer("sin_cached", emb.sin()[None, None, :, :], persistent=False)
+
+    def forward(self, x, seq_len: int):
+        return (
+            self.cos_cached[:, :, :seq_len,...].to(dtype=x.dtype),
+            self.sin_cached[:, :, :seq_len,...].to(dtype=x.dtype),
+        )
+
+def rotate_half(x):
+    """将一个向量的后半部分和前半部分对调，并取反前半部分，这是实现旋转的关键步骤。"""
+    x1 = x[..., : x.shape[-1] // 2]
+    x2 = x[..., x.shape[-1] // 2 :]
+    return torch.cat((-x2, x1), dim=-1)
+
+def apply_rotary_pos_emb(q, k, cos, sin, position_ids):
+    """应用旋转编码"""
+    cos = cos.squeeze(1).squeeze(0)  # [seq_len, dim]
+    sin = sin.squeeze(1).squeeze(0)  # [seq_len, dim]
+    cos = cos[position_ids].unsqueeze(1)  # [bs, 1, seq_len, dim]
+    sin = sin[position_ids].unsqueeze(1)  # [bs, 1, seq_len, dim]
+    q_embed = (q * cos) + (rotate_half(q) * sin)
+    k_embed = (k * cos) + (rotate_half(k) * sin)
+    return q_embed, k_embed
+
+class SwiGLU(nn.Module):
+    """
+    第二个核心升级：SwiGLU激活函数。
+    它比ReLU更复杂，但表达能力也更强。可以把它想象成一个“智能门控”。
+    它有两个并行的线性层，一个产生内容（gate_proj），一个产生一个“门”（up_proj），
+    这个门（经过Swish激活）决定了有多少内容可以通过。
+    这种动态控制信息流的方式，被证明在大型模型中非常有效。
+    """
+    def __init__(self, args: ModelArgs):
+        super().__init__()
+        hidden_dim = args.hidden_dim
+        self.gate_proj = nn.Linear(args.dim, hidden_dim, bias=False)
+        self.down_proj = nn.Linear(hidden_dim, args.dim, bias=False)
+        self.up_proj = nn.Linear(args.dim, hidden_dim, bias=False)
+
+    def forward(self, x):
+        return self.down_proj(F.silu(self.gate_proj(x)) * self.up_proj(x))
+
+class Attention(nn.Module):
+    """
+    第三个核心升级：分组查询注意力（GQA）。
+    在标准的多头注意力（MHA）中，每个Query头都有自己独立的Key和Value头。
+    在GQA中，多个Query头共享同一组Key和Value头。
+    这就像一个会议，MHA是每个人都有一对一的秘书，而GQA是几个人共享一个秘书。
+    大大减少了推理时的内存占用和计算量，同时性能损失很小。
+    """
+    def __init__(self, args: ModelArgs):
+        super().__init__()
+        self.n_heads = args.n_heads
+        self.n_kv_heads = args.n_kv_heads
+        self.n_rep = self.n_heads // self.n_kv_heads
+        self.head_dim = args.head_dim
+
+        self.wq = nn.Linear(args.dim, args.n_heads * self.head_dim, bias=False)
+        self.wk = nn.Linear(args.dim, args.n_kv_heads * self.head_dim, bias=False)
+        self.wv = nn.Linear(args.dim, args.n_kv_heads * self.head_dim, bias=False)
+        self.wo = nn.Linear(args.n_heads * self.head_dim, args.dim, bias=False)
+        self.attn_dropout = nn.Dropout(args.dropout)
+
+    def forward(self, x: torch.Tensor, rope_cos: torch.Tensor, rope_sin: torch.Tensor, mask: Optional):
+        bsz, seqlen, _ = x.shape
+
+        xq, xk, xv = self.wq(x), self.wk(x), self.wv(x)
+
+        xq = xq.view(bsz, seqlen, self.n_heads, self.head_dim)
+        xk = xk.view(bsz, seqlen, self.n_kv_heads, self.head_dim)
+        xv = xv.view(bsz, seqlen, self.n_kv_heads, self.head_dim)
+        
+        # 应用RoPE
+        position_ids = torch.arange(seqlen, device=x.device).unsqueeze(0)
+        xq, xk = apply_rotary_pos_emb(xq, xk, rope_cos, rope_sin, position_ids)
+
+        # GQA的关键步骤：重复K和V头，使其数量与Q头匹配
+        def repeat_kv(t: torch.Tensor, n_rep: int) -> torch.Tensor:
+            bs, slen, n_kv_heads, head_dim = t.shape
+            if n_rep == 1:
+                return t
+            return (
+                t[:, :, :, None, :]
+               .expand(bs, slen, n_kv_heads, n_rep, head_dim)
+               .reshape(bs, slen, n_kv_heads * n_rep, head_dim)
+            )
+        xk = repeat_kv(xk, self.n_rep)
+        xv = repeat_kv(xv, self.n_rep)
+
+        xq = xq.transpose(1, 2)
+        xk = xk.transpose(1, 2)
+        xv = xv.transpose(1, 2)
+
+        # 使用PyTorch内置的、高度优化的scaled_dot_product_attention
+        output = F.scaled_dot_product_attention(xq, xk, xv, attn_mask=mask, dropout_p=self.attn_dropout.p if self.training else 0.0)
+        
+        output = output.transpose(1, 2).contiguous().view(bsz, seqlen, -1)
+        return self.wo(output)
+
+class TransformerBlock(nn.Module):
+    def __init__(self, layer_id: int, args: ModelArgs):
+        super().__init__()
+        self.n_heads = args.n_heads
+        self.dim = args.dim
+        self.head_dim = args.dim // args.n_heads
+        self.attention = Attention(args)
+        self.feed_forward = SwiGLU(args)
+        self.layer_id = layer_id
+        self.attention_norm = nn.LayerNorm(args.dim)
+        self.ffn_norm = nn.LayerNorm(args.dim)
+
+    def forward(self, x: torch.Tensor, rope_cos: torch.Tensor, rope_sin: torch.Tensor, mask: Optional):
+        # 残差连接 + Pre-Norm
+        h = x + self.attention(self.attention_norm(x), rope_cos, rope_sin, mask)
+        out = h + self.feed_forward(self.ffn_norm(h))
+        return out
+
+class ModernTransformer(nn.Module):
+
+    def __init__(self, params: ModelArgs):
+        super().__init__()
+        self.params = params
+        self.vocab_size = params.vocab_size
+        self.n_layers = params.n_layers
+
+        self.tok_embeddings = nn.Embedding(params.vocab_size, params.dim)
+        self.dropout = nn.Dropout(params.dropout)
+        self.layers = nn.ModuleList()
+        for layer_id in range(params.n_layers):
+            self.layers.append(TransformerBlock(layer_id, params))
+        self.norm = nn.LayerNorm(params.dim)
+        self.output = nn.Linear(params.dim, params.vocab_size, bias=False)
+        self.rope = RotaryPositionalEmbedding(params.head_dim, params.max_seq_len)
+
+
+        self.tok_embeddings.weight = self.output.weight
+
+    def forward(self, tokens: torch.Tensor):
+        bsz, seqlen = tokens.shape
+        h = self.tok_embeddings(tokens)
+        h = self.dropout(h)
+        
+        # 获取预计算好的RoPE频率
+        rope_cos, rope_sin = self.rope(h, seqlen=seqlen)
+
+        # 创建注意力掩码
+        mask = None
+        if seqlen > 1:
+            mask = torch.full((1, 1, seqlen, seqlen), float("-inf"), device=tokens.device)
+            mask = torch.triu(mask, diagonal=1).type_as(h)
+
+        for layer in self.layers:
+            h = layer(h, rope_cos, rope_sin, mask)
+
+        h = self.norm(h)
+        output = self.output(h)
+        return output
+
+if __name__ == '__main__':
+
+    print("--- 实例化Transformer ---")
+    args = ModelArgs()
+    model = ModernTransformer(args)
+    
+    # 打印模型参数量
+    num_params = sum(p.numel() for p in model.parameters() if p.requires_grad)
+    print(f"模型总参数量: {num_params / 1e6:.2f}M")
+
+    # 创建一个虚拟输入
+    test_tokens = torch.randint(0, args.vocab_size, (2, 50)) # (batch_size, seq_len)
+    
+    # 进行一次前向传播
+    logits = model(test_tokens)
+    
+    print("\n--- 测试通过 ---")
+    print("输入序列形状:", test_tokens.shape)
+    print("输出Logits形状:", logits.shape)
+    assert logits.shape == (2, 50, args.vocab_size)
+    print("\n模型构建成功！")
+
+                    </code></pre>
+                    
+                    <hr>
+
+                    <h2>二、学习感悟</h2>
+                    
+                    <blockquote>
+                        “真正的发现之旅，不在于寻找新大陆，而在于拥有新的眼睛。” —— 马塞尔·普鲁斯特
+                    </blockquote>
+
+                    <p>
+                        这次跟着happy-llm的学习文档，从零开始搭建一个Transformer模型，感触还是挺深的。之前只是大概知道它的原理，但真正一行行代码去实现的时候，才发现很多细节都藏在魔鬼里。下面是我个人的一些想法和理解。
+                    </p>
+
+                    <h3>2.1 整体印象：乐高积木式的优雅</h3>
+                    <p>
+                        刚开始看Transformer的结构图时，第一感觉是“好复杂”。Encoder和Decoder堆叠了好几层，里面又有“多头注意力”和“前馈网络”两个核心组件，绕来绕去的。但当我把每个部分拆开，单独实现Multi-Head Attention、Position-wise FFN、Positional Encoding这些模块后，再把它们组装起来，感觉就完全不一样了。它就像一套设计精良的乐高积木，每个零件功能明确，虽然内部实现有自己的逻辑，但对外接口很标准。一层Encoder完成它的工作后，把结果（一个特定维度的张量）交给下一层，整个过程非常清晰。这种模块化的设计思想，我觉得是它能够被不断扩展和优化的基础。
+                    </p>
+
+
+                    <h3>2.2 核心灵魂：注意力机制到底在“注意”什么？</h3>
+                    <p>
+                        要说最重要的部分，肯定就是注意力机制了。一开始对Query、Key、Value这三个概念非常模糊，不明白为什么需要这么设计。后来我的理解是，它其实是在模拟一种“信息查询”的过程。在一个句子中，当我们处理某个词（Query）时，需要去句子里的所有词（Keys）那里“看一圈”，判断每个词跟当前这个词的“相关性”有多高（计算Attention Score），然后根据这个相关性，有重点地从那些词（Values）中提取信息。相关性越高的词，它的信息就“拿”得越多。                    </p>
+                    <p>
+                        搞明白这一点后，多头注意力（Multi-Head Attention）也就好理解了，它无非就是让模型拥有“多条并行的思维链”，可以从不同角度去关注和提取信息，比如一个头关注语法结构，另一个头关注语义关联。
+                    </p>
+
+                    <h3>2.3 不可或缺的“辅助”：位置编码与残差连接</h3>
+                    <p>
+                        一开始我觉得，只要有注意力机制，模型就能跑起来了。但很快就发现，Transformer本身没有像RNN那样的循环结构，它一次性“看”到整个句子，所以是无法感知到单词顺序的。如果不加处理，“我爱你”和“你爱我”在它眼里可能就没区别了。这时“位置编码”（Positional Encoding）就派上用场了，它通过给每个位置的输入叠加一个独一无二的数学“胎记”，强行让模型理解了单词的顺序信息，这个设计真的很巧妙。另外，残差连接（Add）和层归一化（Norm）也特别重要，它们就像是数据在模型中流动的“高速公路”和“稳定器”，能防止网络层数加深后出现梯度消失或爆炸的问题，保证了深度模型的训练效果。
+                    </p>
+
+                    <h3>2.4 实践中的“拦路虎”：与张量维度的搏斗</h3>
+                    <p>
+                        理论看懂了，但写代码时最大的挑战就是跟张量的维度（Tensor Shape）作斗争。尤其是在多头注意力模块，d_model要被拆分成n_heads * head_dim，然后在计算完后又要合并回来。这个过程中，transpose和view/reshape操作非常频繁，一不小心就会把维度搞错，导致矩阵无法相乘。我花了很多时间 print(tensor.shape) 来调试，一步步地跟踪数据流向。 Score），然后根据这个相关性，有重点地从那些词（Values）中提取信息。相关性越高的词，它的信息就“拿”得越多。                    </p>
+                    <p>
+                        过程很痛苦，但当我最终成功让数据跑通、模型输出正确的维度时，那种成就感真的特别强，同时也让我对模型内部的数据流动有了更直观、更深刻的理解。
+                    </p>                  
+                   
+                    <p>
+                        至此，代码不再是冰冷的字符，它承载了我们的思考、探索与成长。而分享，则让这份成长有了更广阔的意义。
+                    </p>
+                </article>
+            </div>
+        </div>
+    </div>
+
+    <hr>
+
+</body>
+</html>
